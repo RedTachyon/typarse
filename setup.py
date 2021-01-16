@@ -1,14 +1,24 @@
 from setuptools import setup
 
+with open("README.md", "r", encoding="utf-8") as fh:
+    long_description = fh.read()
+
 setup(
-    name='typarse',
+    name='typarse-RedTachyon',
     version='0.0.1',
     packages=[''],
-    url='https://redtachyon.me',
+    url='https://github.com/redtachyon/typarse',
     license='GNU GPLv3',
-    author='redtachyon',
+    author='RedTachyon',
     author_email='ariel.j.kwiatkowski@gmail.com',
     description='A simple type-hint-based argument parsing library',
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    classifiers=[
+      "Programming Language :: Python :: 3.8",
+      "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+      "Operating System :: OS Independent"
+    ],
     extras_require={
         "tests": [
             "pytest",
