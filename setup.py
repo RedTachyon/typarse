@@ -4,9 +4,9 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setup(
-    name='typarse-RedTachyon',
+    name='typarse',
     version='0.0.1',
-    packages=[''],
+    packages=[],
     url='https://github.com/redtachyon/typarse',
     license='GNU GPLv3',
     author='RedTachyon',
