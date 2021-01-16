@@ -9,7 +9,7 @@ setup(
     author='redtachyon',
     author_email='ariel.j.kwiatkowski@gmail.com',
     description='A simple type-hint-based argument parsing library',
-    extra_require={
+    extras_require={
         "tests": [
             "pytest",
         ]
