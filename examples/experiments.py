@@ -5,7 +5,7 @@ from typing import List, Optional
 class Parser(BaseParser):
     directory: str
     identifier: str
-    num_experiments: int
+    num_experiments: int = 5
     gammas: List[float]
     etas: Optional[List[float]]
     beta: bool
@@ -22,10 +22,6 @@ class Parser(BaseParser):
         "beta": "b",
         "gamma_range": "gr",
         "eta_range": "er",
-    }
-
-    _default = {
-        "num_experiments": 5,
     }
 
     _help = {

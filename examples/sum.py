@@ -5,7 +5,7 @@ from typing import List, Optional
 class Parser(BaseParser):
     nums: List[int]
     square: bool
-    default: int
+    default: int = 0
 
     _abbrev = {
         "nums": "n",
@@ -19,9 +19,6 @@ class Parser(BaseParser):
         "default": "Initial value, added to the sum"
     }
 
-    _default = {
-        "default": 0
-    }
 
 
 args = Parser()

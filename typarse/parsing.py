@@ -9,9 +9,6 @@ class BaseParser:
 
     }
 
-    _default = {
-
-    }
 
     _abbrev = {
 
@@ -30,7 +27,7 @@ class BaseParser:
                 required[name] = False
                 type_ = get_args(type_)[0]
             else:
-                required[name] = name not in self._default
+                required[name] = not hasattr(self, name)
 
             flags = [f"--{name}"]
             if abbrev := self._abbrev.get(name, None):
@@ -44,7 +41,7 @@ class BaseParser:
             elif type_ == bool:
                 parser.add_argument(*flags, action="store_true", help=help_)
             else:
-                parser.add_argument(*flags, action="store", type=type_, default=self._default.get(name, None),
+                parser.add_argument(*flags, action="store", type=type_, default=getattr(self, name, None),
                                     help=help_, required=required[name])
 
         args = parser.parse_args()
@@ -52,10 +49,14 @@ class BaseParser:
         for name in args_types:
             try:
                 value = getattr(args, name)
-            except AttributeError:
-                value = self._default.get(name, None)
-                if value is None and required[name]:
-                    raise AttributeError(f"Required argument {name} not entered and not given a default value.")
+                setattr(self, name, value)
 
-            setattr(self, name, value)
+            except AttributeError:
+                # value = self._default.get(name, None)
+                has_value = hasattr(self, name)
+                if not has_value and required[name]:
+                    raise AttributeError(f"Required argument {name} not entered and not given a default value.")
+                else:
+                    continue
+                    #setattr(self, name, value)
 
