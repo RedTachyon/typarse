@@ -46,3 +46,30 @@ args = Parser()
 
 print(args.default + sum(args.nums) ** (1+args.square))
 ```
+
+# Functionality 2: Config
+
+In the spirit of the library, I added a config management component. 
+Similarly to parsing, you can define a config using type annotations on a class -- also in a nested manner.
+
+Example:
+```python
+from typarse import BaseConfig
+from typing import List 
+
+class Config(BaseConfig):
+    rate: float = 0.1
+    amount: float = 0.01
+    limit: float = 1.
+    class PolicyConfig(BaseConfig):
+        layers: List[int] = [32, 32, 32]
+        activation: str = "relu"
+
+config = {
+    "rate": 0.5,
+    "PolicyConfig": {
+        "layers": [64, 64]
+    }
+}
+
+```
