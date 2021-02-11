@@ -1,22 +1,26 @@
-from typing import Any
+from typing import Any, Dict
 from inspect import isclass
 
 
 class MetaConfig(type):
     """Takes care of printing the config like a dictionary"""
-    def __repr__(cls) -> str:
+
+    def get_dict(cls) -> Dict:
         contents = dict(cls.__dict__)
-        contents.pop('__module__')
-        contents.pop('__annotations__')
-        contents.pop('__doc__')
-        return contents.__repr__()
+        to_remove = ["__module__", "__annotations__", "__doc__"]
+        for name in to_remove:
+            try:
+                contents.pop(name)
+            except KeyError:
+                continue
+
+        return contents
+
+    def __repr__(cls) -> str:
+        return cls.get_dict().__repr__()
 
     def __str__(cls) -> str:
-        contents = dict(cls.__dict__)
-        contents.pop('__module__')
-        contents.pop('__annotations__')
-        contents.pop('__doc__')
-        return contents.__str__()
+        return cls.get_dict().__str__()
 
 
 class BaseConfig(metaclass=MetaConfig):
@@ -36,9 +40,13 @@ class BaseConfig(metaclass=MetaConfig):
     def to_dict(cls) -> dict:
         """Converts the config to a dictionary, removing the built-ins"""
         contents = dict(cls.__dict__)
-        contents.pop('__module__')
-        contents.pop('__annotations__')
-        contents.pop('__doc__')
+        to_remove = ["__module__", "__annotations__", "__doc__"]
+        for name in to_remove:
+            try:
+                contents.pop(name)
+            except KeyError:
+                continue
+
         return contents
 
     @classmethod

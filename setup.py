@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='typarse',
-    version='3.0',
+    version='3.0.1',
     packages=find_packages(),
     url='https://github.com/redtachyon/typarse',
     license='GNU GPLv3',
