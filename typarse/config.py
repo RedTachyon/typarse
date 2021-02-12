@@ -22,19 +22,33 @@ class MetaConfig(type):
     def __str__(cls) -> str:
         return cls.get_dict().__str__()
 
+    def get(self, key: str) -> Any:
+        return getattr(self, key, None)
+
+    def set(self, key: str, value: Any):
+        """Set a single key's vale"""
+        if hasattr(self, key):
+            setattr(self, key, value)
+
+    def __getitem__(self, item):
+        return self.get(item)
+
+    def __setitem__(self, key, value):
+        self.set(key, value)
+
 
 class BaseConfig(metaclass=MetaConfig):
 
-    @classmethod
-    def set(cls, key: str, value: Any):
-        """Set a single key's vale"""
-        if hasattr(cls, key):
-            setattr(cls, key, value)
+    # @classmethod
+    # def set(cls, key: str, value: Any):
+    #     """Set a single key's vale"""
+    #     if hasattr(cls, key):
+    #         setattr(cls, key, value)
 
-    @classmethod
-    def get(cls, key: str) -> Any:
-        """Get the key's value, defaulting to None."""
-        return getattr(cls, key, None)
+    # @classmethod
+    # def get(cls, key: str) -> Any:
+    #     """Get the key's value, defaulting to None."""
+    #     return getattr(cls, key, None)
 
     @classmethod
     def to_dict(cls) -> dict:

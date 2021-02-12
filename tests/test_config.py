@@ -91,3 +91,23 @@ def test_partial_update():
     assert Config.Bar.foo == "qwe"
     assert Config.Bar.bar == [5, 6, 7]
     assert Config.Bar.baz == 10
+
+
+def test_getitem():
+    class Config(BaseConfig):
+        foo: int = 1
+        bar: float = 2.0
+
+        class Bar(BaseConfig):
+            foo: str = "abc"
+            bar: List[int] = [1, 2, 3]
+            baz: int = 10
+
+    Config["bar"] = 3.0
+    Config["Bar"]["baz"] = 20
+
+    assert Config["foo"] == 1
+    assert Config["bar"] == 3.0
+    assert Config["Bar"]["foo"] == "abc"
+    assert Config["Bar"]["bar"] == [1,2,3]
+    assert Config["Bar"]["baz"] == 20
