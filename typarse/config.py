@@ -61,6 +61,10 @@ class BaseConfig(metaclass=MetaConfig):
             except KeyError:
                 continue
 
+        for key, value in contents.items():
+            if isclass(value) and issubclass(value, BaseConfig):
+                contents[key] = value.to_dict()
+
         return contents
 
     @classmethod

@@ -111,3 +111,22 @@ def test_getitem():
     assert Config["Bar"]["foo"] == "abc"
     assert Config["Bar"]["bar"] == [1,2,3]
     assert Config["Bar"]["baz"] == 20
+
+
+def test_config_update():
+    class ConfigA(BaseConfig):
+        foo: int = 1
+
+        class Bar(BaseConfig):
+            foo: int = 5
+
+    class ConfigB(BaseConfig):
+        foo: int = 2
+
+        class Bar(BaseConfig):
+            foo: int = 10
+
+    ConfigA.update(ConfigB.to_dict())
+
+    assert ConfigA.foo == 2
+    assert ConfigA.Bar.foo == 10
