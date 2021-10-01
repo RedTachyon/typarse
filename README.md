@@ -73,3 +73,7 @@ config = {
 }
 
 ```
+
+# Installation
+
+It's on PyPi so install it with `pip install typarse`, `poetry add typarse` or whatever you want. If you want to install it from the source, it's pure Python so I'm sure you can figure it out.
