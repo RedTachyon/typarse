@@ -1,4 +1,4 @@
-from typing import Any, Dict
+from typing import Any, Dict, Type
 from inspect import isclass
 
 
@@ -35,6 +35,15 @@ class MetaConfig(type):
 
     def __setitem__(self, key, value):
         self.set(key, value)
+
+    # def __dict__(cls):
+    #     return cls.get_dict()
+    # def __getstate__(self, state):
+    #     return self.get_dict()
+    #
+    # def __setstate__(self, state):
+    #     for key, val in state.items():
+    #         setattr(self, key, val)
 
 
 class BaseConfig(metaclass=MetaConfig):
@@ -78,3 +87,20 @@ class BaseConfig(metaclass=MetaConfig):
                 d_value.update(value)
             else:
                 cls.set(key, value)
+
+    @classmethod
+    def clone(cls):
+        return type(cls.__name__, cls.__bases__, dict(cls.__dict__))
+
+    @classmethod
+    def __getstate__(cls, state):
+        return cls.to_dict()
+
+    @classmethod
+    def __setstate__(cls, state):
+        for key, val in state.items():
+            setattr(cls, key, val)
+
+    @classmethod
+    def __dict__(cls):
+        return cls.to_dict

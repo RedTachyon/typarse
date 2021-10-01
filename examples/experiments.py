@@ -32,5 +32,5 @@ class Parser(BaseParser):
         "etas": "If in beta mode, values of eta (1/beta) to test",
         "beta": "Whether to use beta-weighted discounting. In absence of eta values, the heuristic will be used",
         "gamma_range": "Whether the gamma values should be interpreted as in np.linspace(start, end, num)",
-        "eta_range": "See gamma_range"
+        "eta_range": "See gamma_range",
     }
