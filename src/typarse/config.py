@@ -85,8 +85,10 @@ class BaseConfig(metaclass=MetaConfig):
 
             if isclass(d_value) and issubclass(d_value, BaseConfig):
                 d_value.update(value)
-            else:
+            elif value is not None:
                 cls.set(key, value)
+            else:
+                continue
 
     @classmethod
     def clone(cls):

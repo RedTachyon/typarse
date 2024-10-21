@@ -8,7 +8,7 @@ dynamic = ["version"]
 description = 'Simple type-based argument parsing'
 readme = "README.md"
 requires-python = ">=3.8"
-license = "GPL"
+license = "GPL-3.0"
 keywords = []
 authors = [
   { name = "RedTachyon", email = "ariel.j.kwiatkowski@gmail.com" },
