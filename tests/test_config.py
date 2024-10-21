@@ -181,3 +181,25 @@ def test_empty_update():
     assert Config.foo == 1
     assert Config.bar == 10.0
     assert Config.baz == "qwe"
+
+
+def test_tuple_list_update():
+    class Config(BaseConfig):
+        foo: tuple[int, ...] = (1, 2, 3)
+
+    config = {"foo": [4, 5, 6]}
+    Config.update(config)
+
+    assert Config.foo == (4, 5, 6)
+    assert not Config.foo == [4, 5, 6]
+
+
+def test_list_tuple_update():
+    class Config(BaseConfig):
+        foo: list[int] = [1, 2, 3]
+
+    config = {"foo": (4, 5, 6)}
+    Config.update(config)
+
+    assert Config.foo == [4, 5, 6]
+    assert not Config.foo == (4, 5, 6)

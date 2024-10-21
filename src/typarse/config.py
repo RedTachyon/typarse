@@ -86,7 +86,10 @@ class BaseConfig(metaclass=MetaConfig):
             if isclass(d_value) and issubclass(d_value, BaseConfig):
                 d_value.update(value)
             elif value is not None:
-                cls.set(key, value)
+                if isinstance(d_value, list) or isinstance(d_value, tuple):
+                    cls.set(key, type(d_value)(value))
+                else:
+                    cls.set(key, value)
             else:
                 continue
 
