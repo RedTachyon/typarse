@@ -167,3 +167,17 @@ def test_copy():
     assert OptimizerKwargs.lr == 1e-4
     assert ConfigCopy.eps == 1e-7
     assert OptimizerKwargs.eps == 1e-1
+
+
+def test_empty_update():
+    class Config(BaseConfig):
+        foo: int = 1
+        bar: float = 2.0
+        baz: str = "abc"
+
+    config = {"foo": None, "bar": 10.0, "baz": "qwe"}
+    Config.update(config)
+
+    assert Config.foo == 1
+    assert Config.bar == 10.0
+    assert Config.baz == "qwe"
